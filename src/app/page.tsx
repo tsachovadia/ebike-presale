@@ -68,7 +68,7 @@ const BUNDLE_TOTAL_SEPARATE = 417;
 const LICENSING_PRICE = 189;
 
 // ⬇️ הדבק כאן את ה-URL של Google Apps Script (אחרי Deploy)
-const GOOGLE_SCRIPT_URL = "";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwa_-87L0XHa0-QLMO2L2QAtOIFg_Gne3lfzsS1KJVk9jvPGg-gJl6wrUYMbdABd60-/exec";
 
 const BUNDLE_ITEMS = [
   {
