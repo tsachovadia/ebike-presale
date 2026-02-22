@@ -11,8 +11,8 @@ const GOOGLE_SCRIPT_URL = "";
 
 /** Product images — replace with your own hosted URLs */
 const IMAGES = {
-  quicker: "https://tamirmotors.co.il/wp-content/uploads/2024/11/QUICKER-RS.jpg",
-  orka: "/bikes/orka.jpg", // ← Put your ORKA image in public/bikes/orka.jpg
+  quicker: "/bikes/quicker-rs.jpg",
+  orka: "/bikes/orka.jpg",
 };
 
 // ============================================================
@@ -39,7 +39,7 @@ const BIKES: Record<BikeId, {
     desc: "קל וזריז, אידיאלי לנסיעות יומיומיות לעבודה וחזרה. מושלם לרחובות העיר.",
     range: "35-45",
     battery: "48V 13Ah",
-    motor: "500W",
+    motor: "750W",
     wheels: "מגנזיום 3.0\"",
     marketPrice: 3600,
     price: 3150,
@@ -52,7 +52,7 @@ const BIKES: Record<BikeId, {
     desc: "עוצמה מטורפת וטווח נסיעה ארוך במיוחד. נבנה במיוחד לאתרי בנייה ונסיעות ארוכות.",
     range: "65-80",
     battery: "48V 21Ah",
-    motor: "750W",
+    motor: "1000W",
     wheels: "בלון רחב 4.5\"",
     marketPrice: 5500,
     price: 4450,
