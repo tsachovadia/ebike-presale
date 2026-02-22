@@ -140,8 +140,21 @@ export default function Home() {
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [imgError, setImgError] = useState<Record<string, boolean>>({});
+  const [timerSticky, setTimerSticky] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<HTMLDivElement>(null);
   const timer = useWeeklyCountdown();
+
+  useEffect(() => {
+    const el = timerRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setTimerSticky(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const bikePrice = selectedBike ? BIKES[selectedBike].price : 0;
   const bundleCost = bundleAdded ? BUNDLE_PRICE : 0;
@@ -238,6 +251,30 @@ export default function Home() {
   return (
     <main dir="rtl" className="min-h-screen bg-neutral-950 text-white pb-36">
 
+      {/* ━━━ STICKY TIMER BAR ━━━ */}
+      {timerSticky && (
+        <div className="fixed top-0 left-0 right-0 bg-neutral-950/95 backdrop-blur-xl border-b border-red-500/20 z-50 py-2 px-4">
+          <div className="max-w-lg mx-auto flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
+              </span>
+              <span className="text-[11px] text-neutral-400">מלאי מוגבל · מחיר עולה בעוד:</span>
+            </div>
+            <div dir="ltr" className="flex items-center gap-1.5">
+              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.days).padStart(2, "0")}</span>
+              <span className="text-red-500 text-xs font-bold">:</span>
+              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.hours).padStart(2, "0")}</span>
+              <span className="text-red-500 text-xs font-bold">:</span>
+              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.minutes).padStart(2, "0")}</span>
+              <span className="text-red-500 text-xs font-bold">:</span>
+              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.seconds).padStart(2, "0")}</span>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
           1. HERO — Emotional Hook + Urgency
          ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
@@ -252,27 +289,27 @@ export default function Home() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
             </span>
-            הצעה מוגבלת · המחירים עולים בסוף השבוע
+            מלאי מוגבל · המחירים עולים בסוף השבוע
           </div>
 
           <h1 className="text-3xl font-black mb-3 leading-tight animate-fade-up-delay-1">
             אופניים חשמליים
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-l from-red-500 to-amber-400">
-              עם שירות שלא תמצאו
-              <br />בשום מקום אחר
+              במחיר שאפילו ישראלים
+              <br />לא מצליחים להשיג
             </span>
           </h1>
 
           <p className="text-sm text-neutral-400 mt-4 leading-relaxed animate-fade-up-delay-2">
-            משלוח עד הדלת, אחריות שנה, עזרה ברישוי.
+            ישירות מהיבואן הרשמי. משלוח עד הדלת, אחריות שנה, עזרה ברישוי.
             <br />
-            <span className="text-neutral-300 font-medium">הכל כלול. בלי הפתעות.</span>
+            <span className="text-neutral-300 font-medium">הכל כלול. מלאי מוגבל. בלי הפתעות.</span>
           </p>
 
           {/* Countdown Timer */}
-          <div className="mt-6 bg-neutral-900/80 border border-red-500/20 rounded-xl p-4 animate-fade-up-delay-3">
-            <p className="text-xs text-neutral-500 mb-2 text-center">המחירים האלה תקפים עוד:</p>
+          <div ref={timerRef} className="mt-6 bg-neutral-900/80 border border-red-500/20 rounded-xl p-4 animate-fade-up-delay-3">
+            <p className="text-xs text-red-400 font-bold mb-1 text-center">📦 מלאי מוגבל — המחיר הזה תקף עוד:</p>
             <div dir="ltr" className="flex justify-center gap-3">
               <TimerUnit value={timer.days} label="ימים" />
               <span className="text-red-500 text-xl font-bold mt-1">:</span>
