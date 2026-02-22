@@ -72,7 +72,7 @@ const BUNDLE_ITEMS = [
     icon: "⛑️",
     name: "קסדה מאושרת תקן ישראלי",
     price: 179,
-    desc: "חובה לפי החוק. קנס של ₪250 על רכיבה בלי קסדה! קסדה נוחה ומאווררת שעומדת בתקן ישראלי.",
+    desc: "חובה לפי החוק. קנס של ₪250 על רכיבה בלי קסדה! קסדת בנייה לא מגנה על הראש ברכיבה — צריך קסדה ייעודית שעומדת בתקן ישראלי.",
   },
   {
     icon: "🔒",
@@ -356,7 +356,7 @@ export default function Home() {
           <ProblemCard
             icon="💥"
             title="אופניים זולים = נתקעת באמצע הדרך"
-            desc="הפסד יום עבודה = הפסד של ₪1,000-3,000. ובעיות עם הבוס — לך תספר לו סיפורים. ההפרש במחיר לא שווה את הסיכון."
+            desc="הפסד יום עבודה = הפסד של ₪800-2,000. ובעיות עם הבוס — לך תספר לו סיפורים. ההפרש במחיר לא שווה את הסיכון."
           />
           <ProblemCard
             icon="💸"
@@ -370,8 +370,8 @@ export default function Home() {
           />
           <ProblemCard
             icon="🗑️"
-            title="אופניים זולים = 0 ערך מכירה חוזרת"
-            desc="אופניים ממותג מוכר שומרים על ערך. אופניים זולים בלי מותג — אי אפשר למכור אותם. כסף זרוק."
+            title="היום אתה רוכב, מחר תרצה למכור"
+            desc="היום אתה עובד 15 ק״מ מהאתר. בעוד חצי שנה אולי תעבור אתר, או תחזור הביתה. אופניים איכותיות — תמכור ותקבל כסף בחזרה. אופניים זולות — אף אחד לא ירצה לקנות."
           />
         </div>
       </section>
@@ -386,7 +386,7 @@ export default function Home() {
         </p>
 
         <div className="grid grid-cols-2 gap-3">
-          <SolutionCard icon="🚚" title="משלוח עד אליך" desc="חוסך לך יום עבודה. האופניים מגיעות אליך — לא אתה אליהן." />
+          <SolutionCard icon="🚚" title="משלוח עד אליך" desc="תוך 4 ימי עסקים עד הדלת. חוסך לך יום עבודה — האופניים מגיעות אליך." />
           <SolutionCard icon="🛡️" title="שנה אחריות" desc="כל תקלה חוץ מפנצ׳רים — אנחנו מטפלים. בלי תשלום נוסף." />
           <SolutionCard icon="🔧" title="מרכזי שירות" desc="עשרות מרכזי שירות ברחבי הארץ. תמיד יש לך לאן לפנות." />
           <SolutionCard icon="📋" title="רישוי ב-₪189" desc="אנחנו שולחים אותך לשותף שלנו. תהליך הכי קל שיש." />
@@ -480,7 +480,7 @@ export default function Home() {
                   </div>
 
                   <p className="text-[11px] text-neutral-600 mt-2">
-                    * כולל משלוח עד הדלת + אחריות שנה
+                    * כולל משלוח עד הדלת (4 ימי עסקים) + אחריות שנה
                   </p>
 
                   <button
@@ -685,22 +685,48 @@ export default function Home() {
           </div>
 
           <div>
-            <label className="text-sm font-medium text-neutral-300 mb-1.5 block">מספר טלפון ישראלי</label>
+            <label className="text-sm font-medium text-neutral-300 mb-1.5 block">טלפון שזמין בו (ישראלי)</label>
             <input type="tel" value={phoneIsrael} onChange={(e) => setPhoneIsrael(e.target.value)} placeholder="05X-XXXXXXX" inputMode="tel" dir="ltr"
               className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-600 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all text-left" />
           </div>
 
           <div>
-            <label className="text-sm font-medium text-neutral-300 mb-1.5 block">מספר טלפון סיני</label>
+            <label className="text-sm font-medium text-neutral-300 mb-1.5 block">טלפון סיני (אם יש)</label>
             <input type="tel" value={phoneChina} onChange={(e) => setPhoneChina(e.target.value)} placeholder="+86 XXX-XXXX-XXXX" inputMode="tel" dir="ltr"
               className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-600 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all text-left" />
-            <p className="text-[10px] text-neutral-600 mt-1">צריך לפחות מספר אחד — ישראלי או סיני</p>
+            <p className="text-[10px] text-neutral-600 mt-1">צריך לפחות מספר אחד שזמין בו — ישראלי או סיני</p>
           </div>
 
           <div>
-            <label className="text-sm font-medium text-neutral-300 mb-1.5 block">כתובת למשלוח</label>
-            <input required type="text" value={location} onChange={(e) => setLocation(e.target.value)} placeholder="לדוגמה: אתר בנייה בתל אביב, כתובת מגורים..."
-              className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3.5 text-white placeholder:text-neutral-600 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all" />
+            <label className="text-sm font-medium text-neutral-300 mb-1.5 block">מיקום למשלוח</label>
+            <button
+              type="button"
+              onClick={() => {
+                if (!navigator.geolocation) {
+                  setLocation("הדפדפן לא תומך בשיתוף מיקום");
+                  return;
+                }
+                navigator.geolocation.getCurrentPosition(
+                  (pos) => setLocation(`${pos.coords.latitude.toFixed(5)}, ${pos.coords.longitude.toFixed(5)}`),
+                  () => setLocation(""),
+                );
+              }}
+              className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3.5 text-right text-sm transition-all hover:border-red-500/50 flex items-center justify-between"
+            >
+              {location ? (
+                <span className="text-emerald-400 font-medium">📍 מיקום נשמר: {location}</span>
+              ) : (
+                <span className="text-neutral-500">📍 לחץ כאן לשתף מיקום</span>
+              )}
+              <span className="text-xs text-neutral-600">GPS</span>
+            </button>
+            <input
+              type="text"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="או הקלד כתובת / שם אתר בנייה..."
+              className="w-full mt-2 bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-white placeholder:text-neutral-600 focus:border-red-500 focus:ring-1 focus:ring-red-500 outline-none transition-all text-sm"
+            />
           </div>
 
           {/* Order summary with crossed-out market prices */}
