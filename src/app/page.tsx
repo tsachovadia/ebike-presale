@@ -253,23 +253,31 @@ export default function Home() {
 
       {/* ━━━ STICKY TIMER BAR ━━━ */}
       {timerSticky && (
-        <div className="fixed top-0 left-0 right-0 bg-neutral-950/95 backdrop-blur-xl border-b border-red-500/20 z-50 py-2 px-4">
-          <div className="max-w-lg mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2 w-2">
+        <div className="fixed top-0 left-0 right-0 bg-neutral-950/95 backdrop-blur-xl border-b border-red-500/30 z-50 py-3 px-4">
+          <div className="max-w-lg mx-auto">
+            <div className="flex items-center justify-center gap-2 mb-1.5">
+              <span className="relative flex h-2.5 w-2.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-red-500" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-red-500" />
               </span>
-              <span className="text-[11px] text-neutral-400">מלאי מוגבל · מחיר עולה בעוד:</span>
+              <span className="text-xs font-bold text-red-400">📦 מלאי מוגבל — המחיר עולה בעוד:</span>
             </div>
-            <div dir="ltr" className="flex items-center gap-1.5">
-              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.days).padStart(2, "0")}</span>
-              <span className="text-red-500 text-xs font-bold">:</span>
-              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.hours).padStart(2, "0")}</span>
-              <span className="text-red-500 text-xs font-bold">:</span>
-              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.minutes).padStart(2, "0")}</span>
-              <span className="text-red-500 text-xs font-bold">:</span>
-              <span className="bg-neutral-800 rounded px-1.5 py-0.5 text-sm font-black text-red-400 tabular-nums">{String(timer.seconds).padStart(2, "0")}</span>
+            <div dir="ltr" className="flex justify-center gap-2">
+              <div className="bg-neutral-800 rounded-lg px-2.5 py-1.5 text-center min-w-[44px]">
+                <span className="text-lg font-black text-red-400 tabular-nums">{String(timer.days).padStart(2, "0")}</span>
+              </div>
+              <span className="text-red-500 text-xl font-bold self-center">:</span>
+              <div className="bg-neutral-800 rounded-lg px-2.5 py-1.5 text-center min-w-[44px]">
+                <span className="text-lg font-black text-red-400 tabular-nums">{String(timer.hours).padStart(2, "0")}</span>
+              </div>
+              <span className="text-red-500 text-xl font-bold self-center">:</span>
+              <div className="bg-neutral-800 rounded-lg px-2.5 py-1.5 text-center min-w-[44px]">
+                <span className="text-lg font-black text-red-400 tabular-nums">{String(timer.minutes).padStart(2, "0")}</span>
+              </div>
+              <span className="text-red-500 text-xl font-bold self-center">:</span>
+              <div className="bg-neutral-800 rounded-lg px-2.5 py-1.5 text-center min-w-[44px]">
+                <span className="text-lg font-black text-red-400 tabular-nums">{String(timer.seconds).padStart(2, "0")}</span>
+              </div>
             </div>
           </div>
         </div>
