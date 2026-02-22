@@ -2,18 +2,18 @@
  * Google Apps Script — Receives orders from the landing page
  * and writes them to the active Google Sheet.
  *
- * SETUP INSTRUCTIONS:
- * 1. Go to https://sheets.google.com → Create a new spreadsheet
- * 2. Name the first row headers:
- *    A: תאריך | B: שם | C: טלפון | D: דגם | E: מחיר אופניים | F: חבילת אביזרים | G: מחיר חבילה | H: סה״כ
- * 3. Go to Extensions → Apps Script
- * 4. Delete any existing code and paste this entire file
- * 5. Click Deploy → New deployment
- * 6. Select type: "Web app"
- * 7. Set "Execute as": Me
- * 8. Set "Who has access": Anyone
- * 9. Click Deploy → Copy the URL
- * 10. Paste the URL into GOOGLE_SCRIPT_URL in page.tsx
+ * SETUP:
+ * 1. צור Google Sheet חדש → שמור לו שם "הזמנות אופניים"
+ * 2. בשורה 1 הכנס headers:
+ *    A: תאריך | B: שם | C: טלפון ישראלי | D: טלפון סיני | E: מיקום | F: דגם | G: מחיר אופניים | H: חבילת בטיחות | I: רישוי | J: סה״כ
+ * 3. Extensions → Apps Script
+ * 4. מחק הכל → הדבק את הקוד הזה → שמור (Ctrl+S)
+ * 5. Deploy → New deployment
+ * 6. Type: "Web app"
+ * 7. Execute as: Me
+ * 8. Who has access: Anyone
+ * 9. Deploy → העתק את ה-URL
+ * 10. הדבק את ה-URL בקובץ page.tsx במקום GOOGLE_SCRIPT_URL
  */
 
 function doPost(e) {
@@ -21,33 +21,30 @@ function doPost(e) {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
     var data = JSON.parse(e.postData.contents);
 
-    // Format the timestamp for Israel timezone
-    var timestamp = new Date(data.timestamp);
-    var formattedDate = Utilities.formatDate(timestamp, "Asia/Jerusalem", "dd/MM/yyyy HH:mm");
-
     sheet.appendRow([
-      formattedDate,
-      data.name,
-      data.phone,
-      data.bike,
-      data.bikePrice,
-      data.bundle,
-      data.bundlePrice,
-      data.total,
+      new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" }),
+      data.name || "",
+      data.phoneIsrael || "",
+      data.phoneChina || "",
+      data.location || "",
+      data.bike || "",
+      data.bikePrice || 0,
+      data.bundle ? "כן (₪" + data.bundlePrice + ")" : "לא",
+      data.licensing ? "כן (₪" + data.licensingPrice + ")" : "לא",
+      data.total || 0,
     ]);
 
     return ContentService
-      .createTextOutput(JSON.stringify({ result: "success" }))
+      .createTextOutput(JSON.stringify({ status: "ok" }))
       .setMimeType(ContentService.MimeType.JSON);
-
-  } catch (error) {
+  } catch (err) {
     return ContentService
-      .createTextOutput(JSON.stringify({ result: "error", message: error.toString() }))
+      .createTextOutput(JSON.stringify({ status: "error", message: err.toString() }))
       .setMimeType(ContentService.MimeType.JSON);
   }
 }
 
-// Allow GET requests for testing
+// GET request — לבדיקה. פתח את ה-URL בדפדפן ואם רואים את ההודעה = עובד
 function doGet() {
   return ContentService
     .createTextOutput("✅ Script is working! Send POST requests from the landing page.")

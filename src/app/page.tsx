@@ -67,6 +67,9 @@ const BUNDLE_PRICE = 327;
 const BUNDLE_TOTAL_SEPARATE = 417;
 const LICENSING_PRICE = 189;
 
+// ⬇️ הדבק כאן את ה-URL של Google Apps Script (אחרי Deploy)
+const GOOGLE_SCRIPT_URL = "";
+
 const BUNDLE_ITEMS = [
   {
     icon: "⛑️",
@@ -193,9 +196,23 @@ export default function Home() {
       total,
     };
 
-    // Log for now — will connect to Typeform/Notion later
     console.log("📋 Order:", orderData);
-    await new Promise((r) => setTimeout(r, 1200));
+
+    if (GOOGLE_SCRIPT_URL) {
+      try {
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(orderData),
+        });
+      } catch {
+        // no-cors doesn't return readable response, but data is sent
+      }
+    } else {
+      // No URL configured yet — simulate delay
+      await new Promise((r) => setTimeout(r, 1200));
+    }
 
     setSubmitting(false);
     setSuccess(true);
