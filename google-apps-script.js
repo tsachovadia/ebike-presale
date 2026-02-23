@@ -5,7 +5,7 @@
  * SETUP:
  * 1. צור Google Sheet חדש → שמור לו שם "הזמנות אופניים"
  * 2. בשורה 1 הכנס headers:
- *    A: תאריך | B: שם | C: טלפון ישראלי | D: טלפון סיני | E: מיקום | F: דגם | G: מחיר אופניים | H: חבילת בטיחות | I: רישוי | J: סה״כ
+ *    A: תאריך | B: מקור | C: שם | D: טלפון ישראלי | E: טלפון סיני | F: מיקום | G: דגם | H: מחיר אופניים | I: חבילת בטיחות | J: רישוי | K: סה״כ
  * 3. Extensions → Apps Script
  * 4. מחק הכל → הדבק את הקוד הזה → שמור (Ctrl+S)
  * 5. Deploy → New deployment
@@ -23,6 +23,7 @@ function doPost(e) {
 
     sheet.appendRow([
       new Date().toLocaleString("he-IL", { timeZone: "Asia/Jerusalem" }),
+      data.source || "unknown",
       data.name || "",
       data.phoneIsrael || "",
       data.phoneChina || "",

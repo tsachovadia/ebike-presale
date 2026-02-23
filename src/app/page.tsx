@@ -467,6 +467,7 @@ export default function Home() {
       licensing: licensingAdded,
       licensingPrice: licensingCost,
       total,
+      source: "page-a",
     };
 
     console.log("📋 Order:", orderData);
